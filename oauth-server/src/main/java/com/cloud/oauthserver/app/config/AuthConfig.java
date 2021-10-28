@@ -68,6 +68,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
         .userDetailsService(userDetailService)
         .tokenEnhancer(tokenEnhancerChain)
         .tokenServices(defaultTokenServices())
+        .reuseRefreshTokens(false)
         ;
         // @formatter:on
 	}
@@ -91,6 +92,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
 		dt.setAuthenticationManager(authenticationManager);
 //		dt.setClientDetailsService(clientDetailsService);
 		dt.setTokenStore(tokenStore());
+		dt.setSupportRefreshToken(true);
 		return dt;
 	}
 	

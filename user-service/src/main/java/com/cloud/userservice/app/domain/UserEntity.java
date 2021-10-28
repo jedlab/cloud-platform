@@ -9,9 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.jedlab.framework.spring.dao.PO;
 import com.jedlab.framework.spring.security.SecurityUserContext;
 
@@ -22,12 +24,15 @@ import lombok.Setter;
 @Table(name = "sec_user")
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserEntity extends PO implements SecurityUserContext {
 
 	@Column(name="user_name")
+	@NotNull
 	private String username;
 	
 	@Column(name="user_password")
+	@NotNull
 	private String password;
 	
 	@Column(name="is_enabled")

@@ -36,3 +36,6 @@ eureka:
     prefer-ip-address: false
     hostname: myserver
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+    
+server:  port: 8787

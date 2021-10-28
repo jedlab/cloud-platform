@@ -24,4 +24,11 @@ spring:
       hibernate.temp.use_jdbc_metadata_defaults: false
       hibernate.jdbc.lob.non_contextual_creation: true
     hibernate:
-      ddl-auto: update        
+      ddl-auto: update
+      
+      
+  messages:
+    use-code-as-default-message: true
+    
+    
+    
