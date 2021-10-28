@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<appender name="ROLLING-LOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logs/eureka-server.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<!-- keep 1 days' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} [%X{traceId}/%X{spanId}] %-5p [%t] %C{2} - %m%n
+			</Pattern>
+		</encoder>
+	</appender>
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} [%X{traceId}/%X{spanId}] %-5p [%t] %C{2} - %m%n
+			</Pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+	</root>
+</configuration>

@@ -1,0 +1,14 @@
+${AnsiColor.YELLOW}
+                                    ___
+                                    `MM
+                                     MM
+  ____   ___   ___ ___  __   ____    MM   __     ___
+ 6MMMMb  `MM    MM `MM 6MM  6MMMMb   MM   d'   6MMMMb
+6M'  `Mb  MM    MM  MM69 " 6M'  `Mb  MM  d'   8M'  `Mb
+MM    MM  MM    MM  MM'    MM    MM  MM d'        ,oMM
+MMMMMMMM  MM    MM  MM     MMMMMMMM  MMdM.    ,6MM9'MM
+MM        MM    MM  MM     MM        MMPYM.   MM'   MM
+YM    d9  YM.   MM  MM     YM    d9  MM  YM.  MM.  ,MM
+ YMMMM9    YMMM9MM__MM_     YMMMM9  _MM_  YM._`YMMM9'Yb.
+
+${AnsiColor.DEFAULT}

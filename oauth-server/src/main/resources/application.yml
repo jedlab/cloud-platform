@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: auth-server
+  datasource:
+    url: jdbc:postgresql://localhost:5432/oauthdb
+    username: oauth
+    password: oauth
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQL95Dialect
+      hibernate.format_sql: true
+      hibernate.temp.use_jdbc_metadata_defaults: false
+      hibernate.jdbc.lob.non_contextual_creation: true
+    hibernate:
+      ddl-auto: update      
+  aop:
+    proxy-target-class: true
+management:
+  context_path: /admin
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+
+
+
+
+    
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin:nimda@myserver:8082/eureka/
+    register-with-eureka: true        
+  instance:
+    prefer-ip-address: false
+    hostname: myserver
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

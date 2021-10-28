@@ -1,0 +1,31 @@
+server:
+  port: 9090
+  
+  
+management:
+  server:
+    port: 8990
+  
+spring:
+  application:
+    name: monitoring
+  boot:
+    admin:                 
+      ui:
+        title: Cloud Monitoring Dashboard
+  security:
+    user:
+      name: admin
+      password: nimda
+         
+  
+eureka:  
+  client:
+    service-url:
+      defaultZone: http://admin:nimda@myserver:8082/eureka/
+    register-with-eureka: false
+
+
+
+    
+    

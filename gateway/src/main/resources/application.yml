@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: payments
+        uri: lb://PAYMENT-SERVICE
+        predicates:
+        - Path=/payments/**
+      - id: users
+        uri: lb://USER-SERVICE
+        predicates:
+        - Path=/**  application:    name: gateway
+  
+      
+eureka:  client:    service-url:      defaultZone: http://admin:nimda@myserver:8082/eureka/
+    register-with-eureka: true          instance:    prefer-ip-address: false
+    hostname: myserver
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    
+
+server:
+  port: 1443
+  
+  

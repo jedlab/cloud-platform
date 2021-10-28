@@ -1,0 +1,31 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: eureka-server
+
+eureka:
+      instance:
+        preferIpAddress: false
+        hostname: myserver
+        #ip-address: 127.0.0.1
+      client:
+        registerWithEureka: false
+        fetchRegistry: false
+        service-url:
+         defaultZone: http://myserver:8082/eureka
+      server:
+        enableSelfPreservation: false
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+
+logging:
+  file:
+    path: /opt/logs/eureka-spring.log
+    max-size: 100MB
+      
