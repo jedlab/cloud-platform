@@ -1,11 +1,13 @@
 package com.cloud.userservice.app.controller;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cloud.userservice.app.domain.UserEntity;
 import com.cloud.userservice.app.service.UserService;
+import com.cloud.userservice.app.validator.UserValidator;
 import com.cloud.util.JsonUtil;
 import com.jedlab.framework.spring.rest.AbstractHomeRestController;
 import com.jedlab.framework.spring.rest.EntityModelMapper;
@@ -17,11 +19,13 @@ public class UserHomeController extends AbstractHomeRestController<UserEntity, S
 	UserService userService;
 	UserHomeEntityModelMapper entityModelMapper;
 	PasswordEncoder encoder;
+	UserValidator userValidator;
 
-	public UserHomeController(UserService service, PasswordEncoder encoder) {
+	public UserHomeController(UserService service, PasswordEncoder encoder, UserValidator userValidator) {
 		super(service);
 		this.userService = service;
 		this.encoder = encoder;
+		this.userValidator = userValidator;
 		setEntityModelMapper(new UserHomeEntityModelMapper());
 	}
 
@@ -35,6 +39,11 @@ public class UserHomeController extends AbstractHomeRestController<UserEntity, S
 			return userEntity;
 		}
 
+	}
+	
+	@Override
+	protected Validator getValidator() {
+		return userValidator;
 	}
 
 }
