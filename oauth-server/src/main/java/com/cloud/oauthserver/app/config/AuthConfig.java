@@ -35,9 +35,9 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
 	private PasswordEncoder passwordEncoder;
 	private UserDetailsService userDetailService;
 
-	public AuthConfig(AuthenticationConfiguration authenticationConf, DataSource dataSource,
+	public AuthConfig(AuthenticationManager authenticationManager, DataSource dataSource,
 			PasswordEncoder passwordEncoder, UserDetailsService userDetailService) throws Exception {
-		this.authenticationManager = authenticationConf.getAuthenticationManager();
+		this.authenticationManager = authenticationManager;
 		this.dataSource = dataSource;
 		this.passwordEncoder = passwordEncoder;
 		this.userDetailService = userDetailService;
@@ -62,7 +62,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
 		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
 		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter()));
         endpoints.authenticationManager(this.authenticationManager)
-        .pathMapping("/oauth/token", "/token")
+        .pathMapping("/oauth/token", "/v1/token")
         .tokenStore(tokenStore())
         .accessTokenConverter(jwtAccessTokenConverter())
         .userDetailsService(userDetailService)

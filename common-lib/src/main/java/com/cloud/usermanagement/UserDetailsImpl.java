@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jedlab.framework.spring.security.SecurityUserContext;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,8 +24,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class UserDetailsImpl implements UserDetails{
+public class UserDetailsImpl implements UserDetails, SecurityUserContext{
 
+	private Long id;
+	
 	private Set<RoleVO> roles = new HashSet<>();
 	
 	private boolean enabled;

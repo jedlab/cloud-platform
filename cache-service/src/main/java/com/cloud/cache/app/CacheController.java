@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cloud.model.KeyValue;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.internal.json.Json;
 import com.hazelcast.internal.json.JsonValue;
@@ -32,13 +32,12 @@ public class CacheController
     public static final String MAP_NAME = "map";
     
 
-    @GetMapping("/put/partition")
-    public ResponseEntity<String> put(@RequestHeader("cache") String cache, @RequestParam(value = "key") String key,
-            @RequestParam(value = "value") String value)
+    @PutMapping("/put")
+    public ResponseEntity<String> put(@RequestBody KeyValue keyValue)
     {
         String mapName = getMapName();
         IMap<String, String> map = hazelcastInstance.getMap(mapName);
-        String oldValue = map.put(key, value);
+        String oldValue = map.put(keyValue.getKey(), keyValue.getValue());
         return ResponseEntity.ok(oldValue);
     }
 

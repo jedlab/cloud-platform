@@ -14,13 +14,12 @@ spring:
     hibernate:
       ddl-auto: update      
   aop:
-    proxy-target-class: true
+    proxy-target-class: true  security:    oauth2:      resource:        filter-order: 3          
 management:
   context_path: /admin
 logging:
   level:
     org.springframework.security: DEBUG
-
 
 
 

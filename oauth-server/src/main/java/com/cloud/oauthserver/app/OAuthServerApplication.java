@@ -5,15 +5,18 @@ import javax.sql.DataSource;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.cloud.config.CommonConfiguration;
+import com.cloud.oauthserver.app.proxy.CacheServiceProxy;
 
 @SpringBootApplication
 @Import(value = {CommonConfiguration.class})
+@EnableFeignClients(basePackageClasses = CacheServiceProxy.class)
 public class OAuthServerApplication
 {
 

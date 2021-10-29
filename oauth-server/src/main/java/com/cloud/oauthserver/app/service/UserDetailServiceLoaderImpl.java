@@ -23,12 +23,13 @@ public class UserDetailServiceLoaderImpl implements UserDetailLoader {
 	public UserDetailsImpl loadUserByUsername(String username) {
 		try {
 			UserDetailsImpl result = jdbcTemplate.queryForObject(
-					"select user_name, user_password, is_enabled from sec_user where user_name = ?",
+					"select id, user_name, user_password, is_enabled from sec_user where user_name = ?",
 					new Object[] { username }, (rs, rowNum) -> {
 						UserDetailsImpl vo = new UserDetailsImpl();
 						vo.setUsername(rs.getString("user_name"));
 						vo.setPassword(rs.getString("user_password"));
 						vo.setEnabled("Y".equals(rs.getString("is_enabled")));
+						vo.setId(rs.getLong("id"));
 						return vo;
 					});
 			//
