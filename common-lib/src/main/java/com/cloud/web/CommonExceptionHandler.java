@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.cloud.exceptions.NotAuthorizedException;
 import com.jedlab.framework.exceptions.ServiceException;
 import com.jedlab.framework.spring.validation.BindingErrorMessage;
 import com.jedlab.framework.spring.validation.BindingValidationError;
@@ -87,5 +88,18 @@ public class CommonExceptionHandler {
 		bem.getErrors().add(new ErrorMessage(8888, se.getMessage()));
 		return bem;
 	}
+	
+	@ExceptionHandler(NotAuthorizedException.class)
+	@ResponseBody
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public BindingErrorMessage handleServiceException(NotAuthorizedException se) {
+
+		BindingErrorMessage bem = new BindingErrorMessage();
+		bem.getErrors().add(new ErrorMessage(9999, se.getMessage()));
+
+		return bem;
+	}
+	
+	
 
 }

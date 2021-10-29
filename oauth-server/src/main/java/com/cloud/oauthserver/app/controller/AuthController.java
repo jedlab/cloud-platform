@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cloud.model.KeyValue;
-import com.cloud.oauthserver.app.proxy.CacheServiceProxy;
 import com.cloud.usermanagement.GrantType;
 import com.cloud.usermanagement.UserDetailsImpl;
 import com.cloud.util.JsonUtil;
+import com.cloud.web.proxy.CacheServiceProxy;
 import com.jedlab.framework.exceptions.ServiceException;
 import com.jedlab.framework.spring.security.AuthenticationUtil;
 

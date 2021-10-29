@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.cloud.config.CommonConfiguration;
-import com.cloud.oauthserver.app.proxy.CacheServiceProxy;
+import com.cloud.web.proxy.CacheServiceProxy;
 
 @SpringBootApplication
 @Import(value = {CommonConfiguration.class})
@@ -43,4 +43,11 @@ public class OAuthServerApplication
     	return new JdbcTemplate(datasource);
     }
 
+    
+//    @Bean
+//    SecureContextRequestBodyAdvice secureContextRequestBodyAdvice(CacheServiceProxy cacheServiceProxy)
+//    {
+//    	return new SecureContextRequestBodyAdvice(new DefaultSecureContextImpl(cacheServiceProxy));
+//    }
+    
 }
