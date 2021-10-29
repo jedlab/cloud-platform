@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import com.jedlab.framework.spring.rest.AbstractQueryRestController;
 import com.jedlab.framework.spring.rest.EntityModelMapper;
 import com.jedlab.framework.spring.rest.QueryWhereParser.FilterProperty;
 import com.jedlab.framework.spring.service.JPARestriction;
+import com.jedlab.framework.util.StringUtil;
 
 @RestController
 @RequestMapping("/users")
@@ -34,13 +37,19 @@ public class UserQueryController extends AbstractQueryRestController<UserEntity,
 		super.setEntityModelMapper(userQueryModelMapper);
 	}
 
-
 	@Override
-	protected JPARestriction getRestriction(List<FilterProperty> filterProperties) {
-		return new UserRestriction();
+	protected JPARestriction getRestriction(List<FilterProperty> filterProperties, HttpServletRequest request) {
+		String uname = request.getParameter("username");
+		return new UserRestriction(uname);
 	}
 
-	private class UserRestriction implements JPARestriction {
+	public static class UserRestriction implements JPARestriction {
+
+		private String username;
+
+		public UserRestriction(String username) {
+			this.username = username;
+		}
 
 		@Override
 		public Specification countSpec(CriteriaBuilder builder, CriteriaQuery criteria, Root root) {
@@ -49,11 +58,16 @@ public class UserQueryController extends AbstractQueryRestController<UserEntity,
 
 		@Override
 		public Specification listSpec(CriteriaBuilder builder, CriteriaQuery criteria, Root root) {
-			return (rootEntity, query, criteriaBuilder) -> applyFilter(rootEntity, query, criteriaBuilder);
+			return (rootEntity, query, criteriaBuilder) -> {
+				root.fetch("roles", JoinType.LEFT);
+				return applyFilter(rootEntity, query, criteriaBuilder);
+			};
 		}
 
 		private Predicate applyFilter(Root rootEntity, CriteriaQuery query, CriteriaBuilder criteriaBuilder) {
 			var predicateList = new ArrayList<Predicate>();
+			if (StringUtil.isNotEmpty(username))
+				predicateList.add(criteriaBuilder.equal(rootEntity.get("username"), username));
 			return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
 		}
 
@@ -63,7 +77,7 @@ public class UserQueryController extends AbstractQueryRestController<UserEntity,
 
 		@Override
 		public UserResponse toModel(UserEntity entity) {
-			return new UserResponse(entity.getId(),entity.getUsername());
+			return new UserResponse(entity.getId(), entity.getUsername());
 		}
 
 	}
