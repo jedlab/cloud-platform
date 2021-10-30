@@ -3,6 +3,7 @@ package com.cloud.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerAdapter;
@@ -13,7 +14,6 @@ import com.cloud.web.proxy.CacheServiceProxy;
 
 public class SecureContextHandlerAdapter implements HandlerAdapter {
 
-	
 	SecureContextLoader secureContextLoader;
 	RequestMappingHandlerAdapter rmh;
 
@@ -21,7 +21,7 @@ public class SecureContextHandlerAdapter implements HandlerAdapter {
 		this.secureContextLoader = new DefaultSecureContextImpl(cacheServiceProxy);
 		this.rmh = rmh;
 	}
-	
+
 	@Override
 	public boolean supports(Object handler) {
 		return (handler instanceof HandlerMethod);
@@ -30,16 +30,19 @@ public class SecureContextHandlerAdapter implements HandlerAdapter {
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
-		HandlerMethod hm=	(HandlerMethod)handler;
-		SecureContext methodAnnotation = hm.getMethodAnnotation(SecureContext.class);
-		if(methodAnnotation == null)
-			methodAnnotation = hm.getBeanType().getAnnotation(SecureContext.class);
-		if(methodAnnotation != null)
-		{
-			secureContextLoader.loadContext(request);
+		try {
+			HandlerMethod hm = (HandlerMethod) handler;
+			SecureContext methodAnnotation = hm.getMethodAnnotation(SecureContext.class);
+			if (methodAnnotation == null)
+				methodAnnotation = hm.getBeanType().getAnnotation(SecureContext.class);
+			if (methodAnnotation != null) {
+				secureContextLoader.loadContext(request);
+			}
+			ModelAndView handle = rmh.handle(request, response, handler);
+			return handle;
+		} finally {
+			SecurityContextHolder.clearContext();
 		}
-		return rmh.handle(request, response, handler);
 	}
 
 	@Override
