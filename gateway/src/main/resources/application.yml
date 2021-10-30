@@ -2,14 +2,18 @@ spring:
   cloud:
     gateway:
       routes:
-      - id: payments
-        uri: lb://PAYMENT-SERVICE
-        predicates:
-        - Path=/payments/**
-      - id: users
+      - id: user
         uri: lb://USER-SERVICE
         predicates:
-        - Path=/**  application:    name: gateway
+        - Path=/user/**
+        filters:
+        - RewritePath=/user/(?<path>.*), /$\{path}
+      - id: auth
+        uri: lb://AUTH-SERVER
+        predicates:
+        - Path=/auth/**   
+        filters:
+        - RewritePath=/auth/(?<path>.*), /$\{path}  application:    name: gateway
   
       
 eureka:  client:    service-url:      defaultZone: http://admin:nimda@myserver:8082/eureka/
@@ -20,5 +24,4 @@ eureka:  client:    service-url:      defaultZone: http://admin:nimda@myserve
 
 server:
   port: 1443
-  
-  
+ 

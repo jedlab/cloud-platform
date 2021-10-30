@@ -31,4 +31,6 @@ spring:
     use-code-as-default-message: true
     
     
-    
+springdoc:
+  packages-to-scan:
+  - com.cloud.userservice.app.controller

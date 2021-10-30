@@ -1,0 +1,14 @@
+swagger
+security 
+  * field permission
+  * service permission
+Audit Envers
+postman collection
+presentor
+devops 
+ * jenkins (build pipeline)
+ * git
+ * jira 
+ * artifactory (nexus)
+
+

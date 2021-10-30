@@ -33,11 +33,10 @@ public class UserDetailServiceLoaderImpl implements UserDetailLoader {
 						return vo;
 					});
 			//
-			var roleQuery = """
-					select name from sec_role where id in (
-					  select role_id from users_roles where user_id = (select id from sec_user where user_name = ?)
-					)
-					""";
+			var roleQuery = "select name from sec_role where id in ("
+					  + "select role_id from users_roles where user_id = (select id from sec_user where user_name = ?))";
+					
+					
 			List<RoleVO> roles = jdbcTemplate.query(roleQuery, new Object[] {username}, (RowMapper<RoleVO>) (rs, rowNum) -> new RoleVO(rs.getString("name")));
 			result.setRoles(new HashSet<>(roles));
 			return result;
