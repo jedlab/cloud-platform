@@ -24,6 +24,8 @@ public class DefaultSecureContextImpl implements SecureContextLoader {
 		String token = request.getHeader("authorization");
 		if (StringUtil.isEmpty(token))
 			token = request.getHeader("Authorization");
+		if(token == null)
+			throw new NotAuthorizedException("Token not found");
 		if (token.startsWith("bearer")) {
 			token = token.substring("bearer".length()).trim();
 			String user = cacheServiceProxy.get(token);
