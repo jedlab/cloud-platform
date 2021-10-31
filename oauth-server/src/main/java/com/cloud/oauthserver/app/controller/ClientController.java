@@ -2,6 +2,7 @@ package com.cloud.oauthserver.app.controller;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
@@ -41,8 +42,8 @@ public class ClientController {
 	public ResponseEntity<?> create(@RequestBody ClientDetailVO vo)
 	{
 		String secret = encoder.encode(vo.getPass());
-		DefaultClientDetails defaultClientDetails = new DefaultClientDetails(vo.getClientId(), secret, 
-				vo.getScopes(), vo.getRoles(), vo.getAdditionalInformation());
+		DefaultClientDetails defaultClientDetails = new DefaultClientDetails(vo.getClientId(), vo.getPass(), 
+				vo.getScopes(), vo.getRoles(), vo.getAdditionalInformation(), secret);
 		clientDetailsService.addClientDetails(defaultClientDetails);
 		return ResponseEntity.ok(defaultClientDetails);
 	}
@@ -64,20 +65,22 @@ public class ClientController {
 	{
 
 		private String clientId;
-		private String pass;
+		private String plainPassword;
 		private Set<String> scopes;
 		private Collection<String> roles;
 		private Map<String, Object> additionalInformation;
+		private String encodedPassword;
 		
 		
 		
 		public DefaultClientDetails(String clientId, String pass, Set<String> scopes, Collection<String> roles,
-				Map<String, Object> additionalInformation) {
+				Map<String, Object> additionalInformation, String encodedPassword) {
 			this.clientId = clientId;
-			this.pass = pass;
+			this.plainPassword = pass;
 			this.scopes = scopes;
 			this.roles = roles;
 			this.additionalInformation = additionalInformation;
+			this.encodedPassword = encodedPassword;
 		}
 
 		@Override
@@ -97,7 +100,7 @@ public class ClientController {
 
 		@Override
 		public String getClientSecret() {
-			return pass;
+			return encodedPassword;
 		}
 
 		@Override
@@ -143,6 +146,12 @@ public class ClientController {
 		@Override
 		public Map<String, Object> getAdditionalInformation() {
 			return additionalInformation;
+		}
+		
+		public String getAuthHeaderPass()
+		{
+			String str= getClientId()+":"+plainPassword;
+			return "Basic " + Base64.getUrlEncoder().encodeToString(str.getBytes());
 		}
 		
 	}

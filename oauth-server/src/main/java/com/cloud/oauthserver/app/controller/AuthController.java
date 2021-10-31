@@ -57,8 +57,7 @@ public class AuthController {
 			return ResponseEntity.ok(body);
 		} catch (HttpRequestMethodNotSupportedException e) {
 			throw new ServiceException(e.getMessage());
-		}finally
-		{
+		} finally {
 			SecurityContextHolder.clearContext();
 		}
 	}
