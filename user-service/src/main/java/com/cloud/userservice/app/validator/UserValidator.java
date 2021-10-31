@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.cloud.userservice.app.domain.UserEntity;
+import com.cloud.entity.UserEntity;
 
 @Component
 public class UserValidator implements Validator{

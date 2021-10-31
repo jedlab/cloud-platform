@@ -1,4 +1,4 @@
-package com.cloud.userservice.app.domain;
+package com.cloud.entity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +12,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.jedlab.framework.spring.dao.PO;
@@ -25,7 +28,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserEntity extends PO implements SecurityUserContext {
+@Audited(targetAuditMode=RelationTargetAuditMode.NOT_AUDITED)
+public class UserEntity extends AuditPO implements SecurityUserContext {
 
 	@Column(name="user_name")
 	@NotNull
@@ -42,7 +46,7 @@ public class UserEntity extends PO implements SecurityUserContext {
 	
 	@ManyToMany(targetEntity = RoleEntity.class)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    @NotAudited
+    @NotAudited
     private Set<RoleEntity> roles = new HashSet<>();
 	
 

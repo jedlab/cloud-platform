@@ -14,7 +14,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cloud.userservice.app.domain.UserEntity;
+import com.cloud.entity.UserEntity;
 import com.cloud.userservice.app.model.UserResponse;
 import com.cloud.userservice.app.service.UserService;
 import com.jedlab.framework.spring.rest.AbstractQueryRestController;

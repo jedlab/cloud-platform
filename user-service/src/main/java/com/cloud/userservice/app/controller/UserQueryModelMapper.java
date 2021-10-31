@@ -1,6 +1,6 @@
 package com.cloud.userservice.app.controller;
 
-import com.cloud.userservice.app.domain.UserEntity;
+import com.cloud.entity.UserEntity;
 import com.cloud.userservice.app.model.UserResponse;
 import com.jedlab.framework.spring.rest.EntityModelMapper;
 

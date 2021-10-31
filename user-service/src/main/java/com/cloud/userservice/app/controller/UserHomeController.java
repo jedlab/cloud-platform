@@ -5,7 +5,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cloud.userservice.app.domain.UserEntity;
+import com.cloud.entity.UserEntity;
 import com.cloud.userservice.app.service.UserService;
 import com.cloud.userservice.app.validator.UserValidator;
 import com.cloud.util.JsonUtil;

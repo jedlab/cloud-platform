@@ -9,8 +9,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.cloud.entity.UserEntity;
 import com.cloud.userservice.app.dao.UserDao;
-import com.cloud.userservice.app.domain.UserEntity;
 import com.jedlab.framework.spring.service.AbstractCrudService;
 
 @Service

@@ -1,8 +1,8 @@
 package com.cloud.userservice.app.dao;
 
-import com.cloud.userservice.app.domain.UserEntity;
-import com.jedlab.framework.spring.dao.AbstractCrudDAO;
+import com.cloud.dao.AbstractCrudRepository;
+import com.cloud.entity.UserEntity;
 
-public interface UserDao extends AbstractCrudDAO<UserEntity> {
+public interface UserDao extends AbstractCrudRepository<UserEntity> {
 
 }

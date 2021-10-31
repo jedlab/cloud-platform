@@ -1,4 +1,4 @@
-package com.cloud.userservice.app.domain;
+package com.cloud.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

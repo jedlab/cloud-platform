@@ -19,6 +19,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-envers</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
@@ -68,9 +73,9 @@
 			<artifactId>postgresql</artifactId>
 		</dependency>
 
-		
-		
-	
+
+
+
 
 	</dependencies>
 	<dependencyManagement>

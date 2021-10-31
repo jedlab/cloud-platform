@@ -23,9 +23,11 @@ spring:
       hibernate.format_sql: true
       hibernate.temp.use_jdbc_metadata_defaults: false
       hibernate.jdbc.lob.non_contextual_creation: true
+      org.hibernate.envers.store_data_at_delete: true
     hibernate:
       ddl-auto: update
-      
+    show-sql: true
+
       
   messages:
     use-code-as-default-message: true
