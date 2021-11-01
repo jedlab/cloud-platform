@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.acls.domain.ObjectIdentityRetrievalStrategyImpl;
 import org.springframework.security.acls.domain.SidRetrievalStrategyImpl;
 import org.springframework.security.acls.model.Acl;
+import org.springframework.security.acls.model.AclCache;
 import org.springframework.security.acls.model.AclService;
 import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.security.acls.model.ObjectIdentity;
@@ -21,13 +22,15 @@ public class SecureAclService {
 	protected ObjectIdentityRetrievalStrategy objectIdentityRetrievalStrategy = new ObjectIdentityRetrievalStrategyImpl();
 
 	protected SidRetrievalStrategy sidRetrievalStrategy = new SidRetrievalStrategyImpl();
-	protected final AclService aclService;
+	private final AclService aclService;
+	private final AclCache aclCache;
 
-	public SecureAclService(AclService aclService) {
+	public SecureAclService(AclService aclService, AclCache aclCache) {
 		this.aclService = aclService;
+		this.aclCache = aclCache;
 	}
 
-	protected boolean hasPermission(Authentication authentication, Object domainObject,
+	public boolean hasPermission(Authentication authentication, Object domainObject,
 			List<Permission> requirePermission) {
 		// Obtain the OID applicable to the domain object
 		ObjectIdentity objectIdentity = this.objectIdentityRetrievalStrategy.getObjectIdentity(domainObject);
@@ -43,5 +46,11 @@ public class SecureAclService {
 			return false;
 		}
 	}
+	
+	public void evitFromCache(Long entityId)
+	{
+		aclCache.evictFromCache(entityId);
+	}
+	
 
 }
