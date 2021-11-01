@@ -12,8 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import com.cloud.web.CommonExceptionHandler;
-import com.cloud.web.SecureContextHandlerAdapter;
 import com.cloud.web.proxy.CacheServiceProxy;
+import com.cloud.web.security.SecureContextHandlerAdapter;
 import com.jedlab.framework.spring.SpringUtil;
 
 @Configuration

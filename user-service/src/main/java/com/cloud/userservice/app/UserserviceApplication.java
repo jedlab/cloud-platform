@@ -10,8 +10,8 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import com.cloud.config.CommonConfiguration;
 import com.cloud.userservice.app.config.UserServiceConfiguration;
-import com.cloud.web.SecureContextHandlerAdapter;
 import com.cloud.web.proxy.CacheServiceProxy;
+import com.cloud.web.security.SecureContextHandlerAdapter;
 
 @SpringBootApplication
 @Import(value = { CommonConfiguration.class })

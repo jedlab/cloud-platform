@@ -1,4 +1,4 @@
-package com.cloud.web;
+package com.cloud.web.security;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

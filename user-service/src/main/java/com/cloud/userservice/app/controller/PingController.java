@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cloud.userservice.app.service.PingService;
 import com.cloud.userservice.app.service.SecureAclService;
-import com.cloud.web.SecureContext;
+import com.cloud.web.security.SecureContext;
 import com.jedlab.framework.spring.security.AuthenticationUtil;
 
 @RestController

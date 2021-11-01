@@ -1,4 +1,4 @@
-package com.cloud.web;
+package com.cloud.web.security;
 
 import javax.servlet.http.HttpServletRequest;
 

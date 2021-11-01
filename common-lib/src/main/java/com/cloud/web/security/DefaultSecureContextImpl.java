@@ -1,4 +1,4 @@
-package com.cloud.web;
+package com.cloud.web.security;
 
 import java.util.stream.Stream;
 
@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.cloud.exceptions.NotAuthorizedException;
 import com.cloud.usermanagement.UserDetailsImpl;
 import com.cloud.util.JsonUtil;
+import com.cloud.web.TokenUtil;
 import com.cloud.web.proxy.CacheServiceProxy;
 import com.jedlab.framework.util.CollectionUtil;
 import com.jedlab.framework.util.StringUtil;
@@ -50,9 +51,12 @@ public class DefaultSecureContextImpl implements SecureContextLoader {
 	}
 
 	private void checkUseHasRole(String role, UserDetailsImpl userDetailsImpl) {
-		long count = userDetailsImpl.getAuthorities().stream().filter(f->f.getAuthority().equals(role)).count();
-		if(count == 0)
-			throw new NotAuthorizedException("Token does not have role : " + role);
+		if(StringUtil.isNotEmpty(role))
+		{
+			long count = userDetailsImpl.getAuthorities().stream().filter(f->f.getAuthority().equals(role)).count();
+			if(count == 0)
+				throw new NotAuthorizedException("Token does not have role : " + role);
+		}
 	}
 
 }

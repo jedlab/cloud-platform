@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cloud.userservice.app.domain.MenuEntity;
 import com.cloud.userservice.app.service.MenuService;
-import com.cloud.web.SecureContext;
+import com.cloud.web.security.SecureContext;
 import com.jedlab.framework.spring.service.JPARestriction;
 import com.jedlab.framework.web.Pagination;
 
