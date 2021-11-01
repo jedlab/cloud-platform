@@ -93,6 +93,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
 //		dt.setClientDetailsService(clientDetailsService);
 		dt.setTokenStore(tokenStore());
 		dt.setSupportRefreshToken(true);
+		dt.setTokenEnhancer(jwtAccessTokenConverter());
 		return dt;
 	}
 	

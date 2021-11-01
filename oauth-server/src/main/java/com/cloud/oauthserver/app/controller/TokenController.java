@@ -72,7 +72,7 @@ public class TokenController {
 			if (postAccessToken.getStatusCodeValue() == 200) {
 				UserDetailsImpl securityUser = (UserDetailsImpl) AuthenticationUtil.getSecurityUser();
 				securityUser.setPassword("");
-				cacheServiceProxy.put(new KeyValue(body.getValue(), JsonUtil.toJson(securityUser)));
+				cacheServiceProxy.put(new KeyValue(""+securityUser.getId(), JsonUtil.toJson(securityUser)));
 			}
 			return ResponseEntity.ok(body);
 		} catch (HttpRequestMethodNotSupportedException e) {
