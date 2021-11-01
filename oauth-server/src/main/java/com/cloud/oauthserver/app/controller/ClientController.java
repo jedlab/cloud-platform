@@ -48,6 +48,9 @@ public class ClientController {
 		return ResponseEntity.ok(defaultClientDetails);
 	}
 	
+	
+	
+	
 	@Getter
 	@Setter
 	@AllArgsConstructor
