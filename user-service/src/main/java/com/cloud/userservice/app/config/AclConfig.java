@@ -40,14 +40,7 @@ public class AclConfig {
 		return new SpringCacheBasedAclCache(cm.getCache("aclCache"), permissionGrantingStrategy(),
 				aclAuthorizationStrategy());
 	}
-//
-//	@Bean
-//	public EhCacheFactoryBean aclEhCacheFactoryBean(EhCacheManagerFactoryBean cmf) {
-//		EhCacheFactoryBean ehCacheFactoryBean = new EhCacheFactoryBean();
-//		ehCacheFactoryBean.setCacheManager(cmf.getObject());
-//		ehCacheFactoryBean.setCacheName("aclCache");
-//		return ehCacheFactoryBean;
-//	}
+
 
 	@Bean
 	public LookupStrategy lookupStrategy(DataSource dataSource, AclCache aclCache) {

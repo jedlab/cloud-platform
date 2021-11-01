@@ -30,6 +30,9 @@ public class MenuEntity extends PO implements Comparable<MenuEntity> {
 
 	@Column(name = "icon")
 	private String icon;
+	
+	@Column(name = "search_key")
+	private String searchKey;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
@@ -38,6 +41,7 @@ public class MenuEntity extends PO implements Comparable<MenuEntity> {
 	@Column(name = "priority")
 	private Integer priority;
 
+	@Transient
 	private List<MenuEntity> children;
 
 	private void addChild(MenuEntity menu) {

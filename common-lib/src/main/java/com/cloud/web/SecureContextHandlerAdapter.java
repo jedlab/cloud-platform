@@ -36,7 +36,7 @@ public class SecureContextHandlerAdapter implements HandlerAdapter {
 			if (methodAnnotation == null)
 				methodAnnotation = hm.getBeanType().getAnnotation(SecureContext.class);
 			if (methodAnnotation != null) {
-				secureContextLoader.loadContext(request);
+				secureContextLoader.loadContext(request, methodAnnotation);
 			}
 			ModelAndView handle = rmh.handle(request, response, handler);
 			return handle;

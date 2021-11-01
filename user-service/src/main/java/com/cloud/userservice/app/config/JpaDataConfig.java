@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.cloud.entity.UserEntity;
+import com.cloud.userservice.app.dao.MenuDao;
 import com.cloud.userservice.app.dao.UserDao;
+import com.cloud.userservice.app.domain.MenuEntity;
 
 /**
  *
@@ -17,8 +19,8 @@ import com.cloud.userservice.app.dao.UserDao;
  *
  */
 @Configuration
-@EntityScan(basePackageClasses = { UserEntity.class })
-@EnableJpaRepositories(basePackageClasses = { UserDao.class })
+@EntityScan(basePackageClasses = { UserEntity.class , MenuEntity.class})
+@EnableJpaRepositories(basePackageClasses = { UserDao.class, MenuDao.class })
 @EnableJpaAuditing(auditorAwareRef = "auditAware")
 @EnableTransactionManagement
 public class JpaDataConfig {

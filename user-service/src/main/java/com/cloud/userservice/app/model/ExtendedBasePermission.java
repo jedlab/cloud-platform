@@ -7,7 +7,7 @@ public class ExtendedBasePermission extends AbstractPermission {
 
 	public static final Permission READ = new ExtendedBasePermission(1 << 0, 'R'); // 1
 
-	public static final Permission WRITE = new ExtendedBasePermission(1 << 1, 'W'); // 2
+	public static final Permission UPDATE = new ExtendedBasePermission(1 << 1, 'U'); // 2
 
 	public static final Permission CREATE = new ExtendedBasePermission(1 << 2, 'C'); // 4
 

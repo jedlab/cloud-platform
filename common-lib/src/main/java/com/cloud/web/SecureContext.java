@@ -14,5 +14,6 @@ import java.lang.annotation.Target;
 @Documented
 public @interface SecureContext {
     
+	String[] roles() default "";
     
 }

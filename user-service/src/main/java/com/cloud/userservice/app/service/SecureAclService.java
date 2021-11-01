@@ -24,9 +24,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecureAclService {
 
-	protected ObjectIdentityRetrievalStrategy objectIdentityRetrievalStrategy = new ObjectIdentityRetrievalStrategyImpl();
+	private ObjectIdentityRetrievalStrategy objectIdentityRetrievalStrategy = new ObjectIdentityRetrievalStrategyImpl();
 
-	protected SidRetrievalStrategy sidRetrievalStrategy = new SidRetrievalStrategyImpl();
+	private SidRetrievalStrategy sidRetrievalStrategy = new SidRetrievalStrategyImpl();
 	private final MutableAclService aclService;
 	private final AclCache aclCache;
 

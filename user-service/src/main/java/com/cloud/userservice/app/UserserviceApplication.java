@@ -23,10 +23,4 @@ public class UserserviceApplication {
 		SpringApplication.run(UserserviceApplication.class, args);
 	}
 
-	@Bean
-	SecureContextHandlerAdapter secureContextHandlerAdapter(CacheServiceProxy cacheProxy,
-			RequestMappingHandlerAdapter emh) {
-		return new SecureContextHandlerAdapter(cacheProxy, emh);
-	}
-
 }
