@@ -27,8 +27,9 @@ public class DefaultSecureContextImpl implements SecureContextLoader {
 		if(token == null)
 			throw new NotAuthorizedException("Token not found");
 		if (token.startsWith("bearer")) {
-			token = token.substring("bearer".length()).trim();
-			String user = cacheServiceProxy.get(token);
+//			token = token.substring("bearer".length()).trim();
+			Long userId = TokenUtil.extractUserIdFromJwtToken(token);
+			String user = cacheServiceProxy.get(""+userId);
 			if(user == null)
 				throw new NotAuthorizedException("user not found in the cache");
 			UserDetailsImpl userDetailsImpl = JsonUtil.toObject(user, UserDetailsImpl.class);

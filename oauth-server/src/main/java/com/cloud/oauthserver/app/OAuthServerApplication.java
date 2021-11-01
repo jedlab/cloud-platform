@@ -32,7 +32,7 @@ public class OAuthServerApplication
             String[] beanDefinitionNames = ctx.getBeanDefinitionNames();
             for (int i = 0; i < beanDefinitionNames.length; i++)
             {
-                System.out.println(beanDefinitionNames[i]);
+//                System.out.println(beanDefinitionNames[i]);
             }
         };
     }
