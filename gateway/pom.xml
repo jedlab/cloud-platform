@@ -8,9 +8,7 @@
 		<artifactId>microservices</artifactId>
 		<version>1.0.0</version>
 	</parent>
-	<groupId>com.cloud</groupId>
 	<artifactId>gateway</artifactId>
-	<version>1.0.0</version>
 	<name>gateway</name>
 	<description>gateway</description>
 	<properties>
@@ -40,7 +38,34 @@
 			<version>1.5.11</version>
 		</dependency>
 		
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>2.5.1.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-jwt</artifactId>
+			<version>1.1.1.RELEASE</version>			
+		</dependency>
+		
+		<dependency>
+			<groupId>com.cloud</groupId>
+			<artifactId>common-lib</artifactId>
+			<version>${common-lib.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 
 		<dependency>
@@ -66,6 +91,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

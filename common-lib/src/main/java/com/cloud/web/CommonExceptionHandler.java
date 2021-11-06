@@ -23,7 +23,10 @@ import com.jedlab.framework.spring.validation.ErrorMessage;
 import com.jedlab.framework.spring.validation.ValidationUtil;
 import com.jedlab.framework.util.CollectionUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
 @ControllerAdvice
+@Slf4j
 public class CommonExceptionHandler {
 
 	MessageSource messageSource;
@@ -85,7 +88,8 @@ public class CommonExceptionHandler {
 	public BindingErrorMessage handleDataIntegrityViolationException(DataIntegrityViolationException se) {
 
 		BindingErrorMessage bem = new BindingErrorMessage();
-		bem.getErrors().add(new ErrorMessage(8888, se.getMessage()));
+		log.info("DataIntegrityViolationException : ", se);
+		bem.getErrors().add(new ErrorMessage(8888, "Unable to perform operation"));
 		return bem;
 	}
 	

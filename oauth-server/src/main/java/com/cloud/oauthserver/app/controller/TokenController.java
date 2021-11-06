@@ -9,6 +9,7 @@ import java.util.Map;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -82,7 +83,7 @@ public class TokenController {
 		}
 	}
 
-	@RequestMapping(value = { "/v1/checkToken" }, method = { RequestMethod.POST })
+	@PostMapping(value = { "/v1/checkToken" })
 	public ResponseEntity<Map<String, ?>> checkToken(@RequestBody String input) {
 		String val = "" + JsonUtil.getJsonFieldValue(input, "token");
 		if (val.startsWith("bearer "))

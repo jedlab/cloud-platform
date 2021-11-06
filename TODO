@@ -1,8 +1,8 @@
-swagger
+swagger - done
 security 
   * field permission
   * service permission
-Audit Envers
+Audit Envers - done
 postman collection
 presentor
 devops 
@@ -11,4 +11,9 @@ devops
  * jira 
  * artifactory (nexus)
 
+
+
+gateway (client)
+spring cloud config
+presentor
 
