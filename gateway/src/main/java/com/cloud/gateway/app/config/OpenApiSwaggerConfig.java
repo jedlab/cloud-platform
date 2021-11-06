@@ -1,7 +1,9 @@
 package com.cloud.gateway.app.config;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springdoc.core.GroupedOpenApi;
 import org.springdoc.core.SwaggerUiConfigParameters;
@@ -13,15 +15,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 
 @Configuration
 public class OpenApiSwaggerConfig {
 
-	@Autowired
-	RouteDefinitionLocator locator;
 
 	@Bean
 	@Lazy(false)
@@ -43,7 +45,11 @@ public class OpenApiSwaggerConfig {
 
 	@Bean
 	public OpenAPI customOpenAPI(@Value("${springdoc.version:1.5.11}") String appVersion) {
-		return new OpenAPI().components(new Components())
+		Components comp = new Components();
+		Map<String, SecurityScheme> securitySchemes = new HashMap<>();
+		securitySchemes.put("Authorization", new SecurityScheme().name("Authorization").type(SecurityScheme.Type.APIKEY).in(SecurityScheme.In.HEADER));
+		comp.setSecuritySchemes(securitySchemes);
+		return new OpenAPI().components(comp)
 				.info(new io.swagger.v3.oas.models.info.Info().title("Gateway API").version(appVersion)
 						.license(new License().name("Apache 2.0").url("http://springdoc.org")));
 	}

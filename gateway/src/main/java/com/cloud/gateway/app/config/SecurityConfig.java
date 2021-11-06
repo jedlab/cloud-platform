@@ -1,5 +1,10 @@
 package com.cloud.gateway.app.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.cloud.gateway.route.RouteDefinition;
+import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
@@ -14,6 +19,21 @@ import org.springframework.security.web.server.util.matcher.ServerWebExchangeMat
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
+	
+	
+	static List<String> permitURI = new ArrayList<>();
+	
+	static {
+		permitURI.add("/swagger-ui.html");
+		permitURI.add("/configuration/ui");
+		permitURI.add("/swagger-resources/**");
+		permitURI.add("/configuration/security");
+		permitURI.add("/webjars/*");
+		permitURI.add("/webjars/**");
+		permitURI.add("/*/api-docs");
+		permitURI.add("/*/api-docs/**");
+		
+	}
 
 	/**
      * The configuration defined here is what really drives the edge service.
@@ -23,18 +43,24 @@ public class SecurityConfig {
      */
     @Bean
     SecurityWebFilterChain oauthTokenAuthConfig(
-            ServerHttpSecurity security, AuthenticationWebFilter oauthAuthenticationWebFilter) {
+            ServerHttpSecurity security, AuthenticationWebFilter oauthAuthenticationWebFilter, RouteDefinitionLocator locator) {
 
+    	
+    	List<RouteDefinition> definitions = locator.getRouteDefinitions().collectList().block();
+    	
         return security
                 .csrf().disable()
                 .logout().disable()
                 .httpBasic().disable()
                 .formLogin().disable()
                 .exceptionHandling().and()
-                .securityMatcher(notMatches("/resources/**"))
+//                .securityMatcher(notMatches(permitURI.toArray(new String[permitURI.size()])))                
                 .addFilterAt(oauthAuthenticationWebFilter, SecurityWebFiltersOrder.HTTP_BASIC)
-                .authorizeExchange().anyExchange().authenticated()
-                .and().build();
+                .authorizeExchange()
+                .matchers(matches(permitURI.toArray(new String[permitURI.size()]))).permitAll()
+                .matchers(matches("/user/**", "/auth/**"))
+                .authenticated().and()
+                .build();
     }
 
     private ServerWebExchangeMatcher matches(String ... routes) {
