@@ -49,6 +49,8 @@ public class OpenApiSwaggerConfig {
 			RouteDefinitionLocator locator, @Value("${eureka.instance.hostname:localhost}") String hostname,
 			@Value("${server.port:1443}") String port) {
 		Components comp = new Components();
+		comp.addSecuritySchemes("contentType", new SecurityScheme().name("Content-Type")
+				.type(SecurityScheme.Type.APIKEY).scheme("http").in(SecurityScheme.In.HEADER));
 		comp.addSecuritySchemes("bearer-jwt", new SecurityScheme().name("Authorization")
 				.type(SecurityScheme.Type.APIKEY).scheme("bearer").bearerFormat("JWT").in(SecurityScheme.In.HEADER));
 		//
@@ -58,12 +60,10 @@ public class OpenApiSwaggerConfig {
 				|| routeDefinition.getId().matches(".*-server")).forEach(routeDefinition -> {
 					String name = routeDefinition.getId().replaceAll("-service", "").replaceAll("-server", "");
 					servers.add(new Server().url(hostname + "/" + name));
-					System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-					System.out.println("http://"+hostname + ":" + port + "/" + name);
 				});
 
 		OpenAPI openAPI = new OpenAPI().components(comp)
-				.addSecurityItem(new SecurityRequirement().addList("bearer-jwt")).servers(servers)
+				.addSecurityItem(new SecurityRequirement().addList("bearer-jwt").addList("contentType")).servers(servers)
 				.info(new io.swagger.v3.oas.models.info.Info().title("Gateway API").version(appVersion)
 						.license(new License().name("Apache 2.0").url("http://springdoc.org")));
 		return openAPI;
