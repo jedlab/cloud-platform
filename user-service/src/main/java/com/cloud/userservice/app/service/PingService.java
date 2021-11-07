@@ -3,11 +3,11 @@ package com.cloud.userservice.app.service;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import com.cloud.config.acl.SecureAclService;
 import com.cloud.userservice.app.domain.MenuEntity;
-import com.cloud.userservice.app.model.ExtendedBasePermission;
+import com.cloud.web.security.ExtendedBasePermission;
 import com.jedlab.framework.spring.security.AuthenticationUtil;
 
 @Service

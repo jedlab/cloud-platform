@@ -1,3 +1,18 @@
+spring:
+  application:
+    name: user-service
+  config:
+    import:
+    - optional:configserver:http://admin:nimda@myserver:8082/configserver  
+  cloud:
+    config:      
+      fail-fast: true
+      uri:
+      - http://admin:nimda@myserver:8082/configserver
+    discovery:
+      enabled: true   
+      
+      
 eureka:
   client:
     service-url:
@@ -7,32 +22,5 @@ eureka:
     prefer-ip-address: false
     hostname: myserver
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
-    
-    
-spring:
-  application:
-    name: user-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/oauthdb
-    username: oauth
-    password: oauth
-  jpa:
-    properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQL95Dialect
-      hibernate.format_sql: true
-      hibernate.temp.use_jdbc_metadata_defaults: false
-      hibernate.jdbc.lob.non_contextual_creation: true
-      org.hibernate.envers.store_data_at_delete: true
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-
-      
-  messages:
-    use-code-as-default-message: true
-    
-    
-springdoc:
-  packages-to-scan:
-  - com.cloud.userservice.app.controller
+    metadata-map:
+      configPath: /configserver

@@ -4,6 +4,19 @@ server:
 spring:
   application:
     name: eureka-server
+  config:
+    name: configserver        
+  profiles:
+    active:
+    - native    
+  cloud:
+    config:
+      name: configserver
+      server:
+        prefix: configserver
+        native:
+          search-locations:
+          - file:///${user.home}/config
 
 eureka:
       instance:

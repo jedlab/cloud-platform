@@ -24,7 +24,7 @@ import com.jedlab.framework.spring.service.JPARestriction;
 import com.jedlab.framework.util.StringUtil;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserQueryController extends AbstractQueryRestController<UserEntity, UserResponse> {
 
 	UserService userService;

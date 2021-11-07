@@ -18,8 +18,8 @@ public class OAuth2AuthenticationManagerAdapter implements ReactiveAuthenticatio
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public OAuth2AuthenticationManagerAdapter(ResourceServerTokenServices tokenServices) {
-        this.authenticationManager = oauthManager(tokenServices);
+    public OAuth2AuthenticationManagerAdapter(ResourceServerTokenServices tokenServices, GatewayConfiguration conf) {
+        this.authenticationManager = oauthManager(tokenServices, conf);
     }
 
     public Mono<Authentication> authenticate(Authentication token) {
@@ -32,9 +32,9 @@ public class OAuth2AuthenticationManagerAdapter implements ReactiveAuthenticatio
         }).filter(Authentication::isAuthenticated);
     }
 
-    private AuthenticationManager oauthManager(ResourceServerTokenServices tokenServices) {
+    private AuthenticationManager oauthManager(ResourceServerTokenServices tokenServices, GatewayConfiguration conf) {
         OAuth2AuthenticationManager oauthAuthenticationManager = new OAuth2AuthenticationManager();
-        oauthAuthenticationManager.setResourceId("gateway");
+        oauthAuthenticationManager.setResourceId(conf.getResourceId());
         oauthAuthenticationManager.setTokenServices(tokenServices);
         return oauthAuthenticationManager;
     }

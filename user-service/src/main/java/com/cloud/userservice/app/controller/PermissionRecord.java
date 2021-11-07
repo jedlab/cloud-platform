@@ -2,7 +2,7 @@ package com.cloud.userservice.app.controller;
 
 import org.springframework.security.acls.model.Permission;
 
-import com.cloud.userservice.app.model.ExtendedBasePermission;
+import com.cloud.web.security.ExtendedBasePermission;
 
 public enum PermissionRecord {
 	READ(ExtendedBasePermission.READ), CREATE(ExtendedBasePermission.CREATE), UPDATE(ExtendedBasePermission.UPDATE);

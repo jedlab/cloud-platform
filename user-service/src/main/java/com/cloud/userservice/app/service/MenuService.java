@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cloud.usermanagement.SecurityUtil;
+import com.cloud.config.acl.SecureAclService;
 import com.cloud.userservice.app.controller.MenuController.MenuVO;
 import com.cloud.userservice.app.dao.MenuDao;
 import com.cloud.userservice.app.domain.MenuEntity;
-import com.cloud.userservice.app.model.ExtendedBasePermission;
+import com.cloud.web.security.ExtendedBasePermission;
 import com.jedlab.framework.spring.security.AuthenticationUtil;
 import com.jedlab.framework.spring.service.AbstractCrudService;
 

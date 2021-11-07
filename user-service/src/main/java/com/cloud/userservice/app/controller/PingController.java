@@ -5,13 +5,12 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cloud.config.acl.SecureAclService;
 import com.cloud.userservice.app.service.PingService;
-import com.cloud.userservice.app.service.SecureAclService;
 import com.cloud.web.security.SecureContext;
 import com.jedlab.framework.spring.security.AuthenticationUtil;
 

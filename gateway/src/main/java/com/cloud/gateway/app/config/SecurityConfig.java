@@ -7,6 +7,7 @@ import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -58,8 +59,9 @@ public class SecurityConfig {
 //                .securityMatcher(notMatches(permitURI.toArray(new String[permitURI.size()])))                
                 .addFilterAt(oauthAuthenticationWebFilter, SecurityWebFiltersOrder.HTTP_BASIC)
                 .authorizeExchange()
+                .pathMatchers(HttpMethod.OPTIONS, "**").permitAll()
                 .matchers(matches(permitURI.toArray(new String[permitURI.size()]))).permitAll()
-                .matchers(matches("/user/**", "/auth/**", "/**"))
+                .matchers(matches("/user/api/**", "/auth/api/**", "/api/**"))
                 .authenticated()
                 .and()
                 .build();

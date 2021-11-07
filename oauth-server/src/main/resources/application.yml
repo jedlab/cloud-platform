@@ -1,31 +1,20 @@
 spring:
   application:
     name: auth-server
-  datasource:
-    url: jdbc:postgresql://localhost:5432/oauthdb
-    username: oauth
-    password: oauth
-  jpa:
-    properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQL95Dialect
-      hibernate.format_sql: true
-      hibernate.temp.use_jdbc_metadata_defaults: false
-      hibernate.jdbc.lob.non_contextual_creation: true
-    hibernate:
-      ddl-auto: update      
-  aop:
-    proxy-target-class: true  security:    oauth2:      resource:        filter-order: 3          
-management:
-  context_path: /admin
-logging:
-  level:
-    org.springframework.security: DEBUG
-
-
-
-
-    
-    
+  config:
+    import:
+    - optional:configserver:http://admin:nimda@myserver:8082/configserver  
+  cloud:
+    config:      
+      fail-fast: true
+      uri:
+      - http://admin:nimda@myserver:8082/configserver
+    discovery:
+      enabled: true   
+      
+      
+      
+      
 eureka:
   client:
     service-url:
@@ -35,6 +24,5 @@ eureka:
     prefer-ip-address: false
     hostname: myserver
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
-    
-server:  port: 8787
+    metadata-map:
+      configPath: /configserver

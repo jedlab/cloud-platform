@@ -13,7 +13,7 @@ import com.jedlab.framework.spring.rest.AbstractHomeRestController;
 import com.jedlab.framework.spring.rest.EntityModelMapper;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserHomeController extends AbstractHomeRestController<UserEntity, String> {
 
 	UserService userService;

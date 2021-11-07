@@ -1,10 +1,8 @@
-package com.cloud.userservice.app.config;
+package com.cloud.config.acl;
 
 import javax.sql.DataSource;
 
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.ehcache.EhCacheFactoryBean;
-import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.acls.domain.AclAuthorizationStrategy;
@@ -17,13 +15,15 @@ import org.springframework.security.acls.jdbc.BasicLookupStrategy;
 import org.springframework.security.acls.jdbc.JdbcMutableAclService;
 import org.springframework.security.acls.jdbc.LookupStrategy;
 import org.springframework.security.acls.model.AclCache;
+import org.springframework.security.acls.model.MutableAclService;
 import org.springframework.security.acls.model.PermissionGrantingStrategy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import com.cloud.userservice.app.model.ExtendedBasePermission;
+import com.cloud.web.security.ExtendedBasePermission;
+
 
 @Configuration
-public class AclConfig {
+public class AclConfiguration {
 
 	@Bean
 	public PermissionGrantingStrategy permissionGrantingStrategy() {
@@ -54,5 +54,12 @@ public class AclConfig {
 	public JdbcMutableAclService aclService(DataSource dataSource, LookupStrategy lookupStrategy, AclCache aclCache) {
 		return new JdbcMutableAclService(dataSource, lookupStrategy, aclCache);
 	}
-
+	
+	@Bean 
+	SecureAclService secureAclService(MutableAclService aclService, AclCache aclCache)
+	{
+		return new SecureAclService(aclService, aclCache);
+	}
+	
+	
 }

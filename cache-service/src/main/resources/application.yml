@@ -1,6 +1,6 @@
 spring:
   application:
-    name: gateway
+    name: cache-service
   config:
     import:
     - optional:configserver:http://admin:nimda@myserver:8082/configserver  
@@ -10,22 +10,7 @@ spring:
       uri:
       - http://admin:nimda@myserver:8082/configserver
     discovery:
-      enabled: true
-    gateway:
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedMethods:
-            - GET     
-            - POST
-            - PUT
-            - DELETE
-            - OPTIONS
-            allowed-headers:
-              - authorization
-              - content-type
-              - xsrf-token
+      enabled: true   
       
       
       
@@ -41,6 +26,3 @@ eureka:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     metadata-map:
       configPath: /configserver
-      
-      
-    

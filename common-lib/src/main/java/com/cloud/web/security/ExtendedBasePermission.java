@@ -1,4 +1,4 @@
-package com.cloud.userservice.app.model;
+package com.cloud.web.security;
 
 import org.springframework.security.acls.domain.AbstractPermission;
 import org.springframework.security.acls.model.Permission;

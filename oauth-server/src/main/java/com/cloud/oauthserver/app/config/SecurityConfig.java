@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -39,7 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().formLogin().disable().authenticationProvider(authenticationProvider()).authorizeRequests()
+		http.csrf().disable().formLogin().disable()
+		.authenticationProvider(authenticationProvider())
+		.authorizeRequests()
+		.antMatchers(HttpMethod.OPTIONS, "**").permitAll()
 				.antMatchers("/api/**").authenticated();
 	}
 

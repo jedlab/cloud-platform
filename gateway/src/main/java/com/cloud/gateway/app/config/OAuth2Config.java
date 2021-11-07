@@ -22,11 +22,11 @@ public class OAuth2Config {
     }
 
     @Bean
-    ResourceServerTokenServices tokenServices(Builder webClientBuilder) {
+    ResourceServerTokenServices tokenServices(Builder webClientBuilder, GatewayConfiguration conf) {
 //        DefaultTokenServices tokenServices = new DefaultTokenServices();
     	CloudRemoteTokenServices tokenServices = new CloudRemoteTokenServices(webClientBuilder); 
-    	tokenServices.setClientId("sherkat55");
-    	tokenServices.setClientSecret("sherkat55");
+    	tokenServices.setClientId(conf.getClientId());
+    	tokenServices.setClientSecret(conf.getClientSecret());
 //    	tokenServices.setCheckTokenEndpointUrl("");
         return tokenServices;
     }
