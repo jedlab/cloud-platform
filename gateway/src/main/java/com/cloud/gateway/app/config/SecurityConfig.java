@@ -1,7 +1,11 @@
 package com.cloud.gateway.app.config;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
@@ -16,6 +20,9 @@ import org.springframework.security.web.server.authentication.AuthenticationWebF
 import org.springframework.security.web.server.util.matcher.NegatedServerWebExchangeMatcher;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatcher;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -45,7 +52,8 @@ public class SecurityConfig {
      */
     @Bean
     SecurityWebFilterChain oauthTokenAuthConfig(
-            ServerHttpSecurity security, AuthenticationWebFilter oauthAuthenticationWebFilter, RouteDefinitionLocator locator) {
+            ServerHttpSecurity security, AuthenticationWebFilter oauthAuthenticationWebFilter, RouteDefinitionLocator locator,
+            CorsWebFilter cors) {
 
     	
     	List<RouteDefinition> definitions = locator.getRouteDefinitions().collectList().block();
@@ -55,8 +63,10 @@ public class SecurityConfig {
                 .logout().disable()
                 .httpBasic().disable()
                 .formLogin().disable()
+//                .cors().and()
                 .exceptionHandling().and()
-//                .securityMatcher(notMatches(permitURI.toArray(new String[permitURI.size()])))                
+//                .securityMatcher(notMatches(permitURI.toArray(new String[permitURI.size()])))
+                .addFilterBefore(cors, SecurityWebFiltersOrder.HTTP_BASIC)
                 .addFilterAt(oauthAuthenticationWebFilter, SecurityWebFiltersOrder.HTTP_BASIC)
                 .authorizeExchange()
                 .pathMatchers(HttpMethod.OPTIONS, "**").permitAll()
@@ -66,6 +76,25 @@ public class SecurityConfig {
                 .and()
                 .build();
     }
+    
+    @Bean
+    public CorsWebFilter corsWebFilter() {
+
+        final CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.setAllowedOrigins(Collections.singletonList("*"));
+//        corsConfig.setMaxAge(3600L);
+        corsConfig.setAllowedMethods(Arrays.asList("GET", "POST"));
+        corsConfig.addAllowedHeader("*");
+        corsConfig.setAllowCredentials(false);
+
+        //
+        Map<String, CorsConfiguration> configMap = new HashMap<>();
+        configMap.put("/**", corsConfig);
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.setCorsConfigurations(configMap);
+
+        return new CorsWebFilter(source);
+    }  
 
     private ServerWebExchangeMatcher matches(String ... routes) {
         return ServerWebExchangeMatchers.pathMatchers(routes);

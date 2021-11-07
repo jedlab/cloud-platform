@@ -10,22 +10,7 @@ spring:
       uri:
       - http://admin:nimda@myserver:8082/configserver
     discovery:
-      enabled: true
-    gateway:
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedMethods:
-            - GET     
-            - POST
-            - PUT
-            - DELETE
-            - OPTIONS
-            allowed-headers:
-              - authorization
-              - content-type
-              - xsrf-token
+      enabled: true   
       
       
       
