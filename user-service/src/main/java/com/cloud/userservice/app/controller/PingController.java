@@ -26,9 +26,9 @@ public class PingController {
 	@Autowired
 	SecureAclService acls;
 	
-	@RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(method = {RequestMethod.GET})
 	@SecureContext
-	public ResponseEntity<String> ping(@RequestBody String inp)
+	public ResponseEntity<String> ping()
 	{
 		System.out.println(AuthenticationUtil.getUserId());
 		System.out.println(AuthenticationUtil.getUsername());

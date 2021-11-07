@@ -32,7 +32,8 @@ public class SecurityConfig {
 		permitURI.add("/webjars/**");
 		permitURI.add("/*/api-docs");
 		permitURI.add("/*/api-docs/**");
-		
+		permitURI.add("/user/v3/api-docs");
+		permitURI.add("/auth/v3/api-docs");
 	}
 
 	/**
@@ -56,10 +57,12 @@ public class SecurityConfig {
                 .exceptionHandling().and()
 //                .securityMatcher(notMatches(permitURI.toArray(new String[permitURI.size()])))                
                 .addFilterAt(oauthAuthenticationWebFilter, SecurityWebFiltersOrder.HTTP_BASIC)
-                .authorizeExchange()
-                .matchers(matches(permitURI.toArray(new String[permitURI.size()]))).permitAll()
-                .matchers(matches("/user/**", "/auth/**"))
-                .authenticated().and()
+//                .authorizeExchange()
+//                .matchers(matches(permitURI.toArray(new String[permitURI.size()]))).ig
+//                .matchers(matches("/user/**", "/auth/**"))
+//                .permitAll()
+//                .authenticated()
+//                .and()
                 .build();
     }
 
