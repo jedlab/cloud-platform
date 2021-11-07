@@ -42,6 +42,7 @@ public class SecurityConfig {
 		permitURI.add("/*/api-docs/**");
 		permitURI.add("/user/v3/api-docs");
 		permitURI.add("/auth/v3/api-docs");
+		permitURI.add("/auth/v1/token");
 	}
 
 	/**
