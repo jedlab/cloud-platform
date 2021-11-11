@@ -26,3 +26,7 @@ eureka:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     metadata-map:
       configPath: /configserver
+      
+      
+      
+      
