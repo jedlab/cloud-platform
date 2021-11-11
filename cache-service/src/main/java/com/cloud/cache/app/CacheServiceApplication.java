@@ -46,6 +46,7 @@ public class CacheServiceApplication {
 		//
 		config.addMapConfig(nonPersistenceMap());
 		config.addMapConfig(persistenceMap(jdbcTemplate, ptm));
+		config.addMapConfig(lockMap());
 		config.getNetworkConfig().setPort(hazelcastPort);
 		config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
 		config.getNetworkConfig().getJoin().getEurekaConfig().setEnabled(true).setProperty("self-registration", "true")
@@ -57,6 +58,12 @@ public class CacheServiceApplication {
 
 	private MapConfig nonPersistenceMap() {
 		MapConfig mc = new MapConfig("map");
+		//
+		return mc;
+	}
+	
+	private MapConfig lockMap() {
+		MapConfig mc = new MapConfig("lock");
 		//
 		return mc;
 	}

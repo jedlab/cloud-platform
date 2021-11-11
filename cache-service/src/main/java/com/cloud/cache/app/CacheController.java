@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cloud.model.KeyValue;
+import com.cloud.model.LockAndPerformVO;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.internal.json.Json;
 import com.hazelcast.internal.json.JsonValue;
@@ -113,6 +114,18 @@ public class CacheController
         String oldValue = map.put(key, value, evictTime, TimeUnit.MILLISECONDS);
         return ResponseEntity.ok(oldValue);
     }
+    
+    
+    @PostMapping("/lockAndPerform")
+    public ResponseEntity<String> lockAndPerform(@RequestBody LockAndPerformVO vo) {
+    	HazelcastDistributedLocker locker = new HazelcastDistributedLocker(hazelcastInstance);
+    	locker.lockAndPerform(vo.getMapName(), ()->{
+    		//TODO: execute rest api with load balancer 
+    	});
+        return ResponseEntity.ok().build();
+    }
+    
+    
 
 
 
