@@ -18,13 +18,13 @@ public class SecurityUtil {
 			Authentication auth = AuthenticationUtil.getAuthentication();
 			Object principal = auth.getPrincipal();
 			if (principal instanceof String || principal.equals("anonymousUser"))
-				return null;
+				return auth.getAuthorities();
 			if (principal instanceof UserDetailsImpl) {
 				UserDetailsImpl applicationUser = ((UserDetailsImpl) principal);
 				Collection<? extends GrantedAuthority> authorities = applicationUser.getAuthorities();
 				return authorities;
 			}
-
+			return auth.getAuthorities();
 		}
 		return null;
 	}
@@ -32,9 +32,11 @@ public class SecurityUtil {
 	public static boolean hasRole(String roleName) {
 		boolean hasRole = false;
 		Collection<? extends GrantedAuthority> userRoles = getUserRoles();
-		for (GrantedAuthority grantedAuthority : userRoles) {
-			if (roleName.equals(grantedAuthority.getAuthority())) {
-				return true;
+		if (userRoles != null) {
+			for (GrantedAuthority grantedAuthority : userRoles) {
+				if (roleName.equals(grantedAuthority.getAuthority())) {
+					return true;
+				}
 			}
 		}
 		return hasRole;

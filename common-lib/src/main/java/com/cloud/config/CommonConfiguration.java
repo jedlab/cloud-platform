@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import com.cloud.web.CommonExceptionHandler;
 import com.cloud.web.proxy.CacheServiceProxy;
 import com.cloud.web.security.SecureContextHandlerAdapter;
+import com.cloud.web.security.SecurePostProcessor;
 import com.jedlab.framework.spring.SpringUtil;
 
 @Configuration
@@ -48,6 +49,11 @@ public class CommonConfiguration {
 	SecureContextHandlerAdapter secureContextHandlerAdapter(CacheServiceProxy cacheProxy,
 			RequestMappingHandlerAdapter emh) {
 		return new SecureContextHandlerAdapter(cacheProxy, emh);
+	}
+	
+	@Bean
+	public SecurePostProcessor trace() {
+		return new SecurePostProcessor();
 	}
 
 }

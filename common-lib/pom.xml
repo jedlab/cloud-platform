@@ -14,6 +14,7 @@
 
 	<properties>
 		<java.version>17</java.version>
+		<spring.version>5.3.12</spring.version>
 		<maven.compiler.target>17</maven.compiler.target>
 		<maven.compiler.source>17</maven.compiler.source>
 	</properties>
@@ -154,6 +155,8 @@
 			<artifactId>spring-security-jwt</artifactId>
 			<version>1.1.1.RELEASE</version>			
 		</dependency>
+		
+		
 
 
 	</dependencies>
