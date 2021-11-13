@@ -15,6 +15,7 @@ import com.cloud.web.CommonExceptionHandler;
 import com.cloud.web.proxy.CacheServiceProxy;
 import com.cloud.web.security.SecureContextHandlerAdapter;
 import com.cloud.web.security.SecurePostProcessor;
+import com.cloud.web.security.TokenSecurePostProcessor;
 import com.jedlab.framework.spring.SpringUtil;
 
 @Configuration
@@ -52,8 +53,13 @@ public class CommonConfiguration {
 	}
 	
 	@Bean
-	public SecurePostProcessor trace() {
+	public SecurePostProcessor securePostProcessor() {
 		return new SecurePostProcessor();
+	}
+	
+	@Bean
+	public TokenSecurePostProcessor tokenSecurePostProcessor() {
+		return new TokenSecurePostProcessor();
 	}
 
 }

@@ -22,6 +22,8 @@ import com.cloud.SecureInterceptorTest.SecureContextconfiguration;
 import com.cloud.exceptions.NotAuthorizedException;
 import com.cloud.web.security.SecureContext;
 import com.cloud.web.security.SecurePostProcessor;
+import com.cloud.web.security.TokenSecureContext;
+import com.cloud.web.security.TokenSecurePostProcessor;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { SecureContextconfiguration.class })
@@ -37,7 +39,7 @@ public class SecureInterceptorTest {
 	{
 		assertNotNull(sb);
 		Exception exception = assertThrows(NotAuthorizedException.class, () ->
-		sb.issecure());
+		sb.issecure("test"));
 		sb.notsecure();
 		assertEquals("User doesn't have permission", exception.getMessage());
 	}
@@ -48,8 +50,9 @@ public class SecureInterceptorTest {
 		assertNotNull(sb);
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken("test","", Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		sb.issecure();
+		sb.issecure("bearer test");
 		sb.notsecure();
+		sb.secureToken("bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiZ2F0ZXdheSJdLCJ1c2VyX25hbWUiOiJhZG1pbmFkbWluIiwic2NvcGUiOlsiUkVBRCIsIldSSVRFIl0sImV4cCI6MTYzNjgzNjA3NSwidXNlcklkIjoyMCwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJqdGkiOiJGMmlqdlNVeHo3SzNBM1ppTGNreF9HVXNod0kiLCJjbGllbnRfaWQiOiJzaGVya2F0NTUifQ.pHkIbi8axSSK7z-aJ4FmMDvHR4y0cj8yPMuUI11Y0z4");
 	}
 	
 	
@@ -57,7 +60,7 @@ public class SecureInterceptorTest {
 	public static class SecureBean
 	{
 		@SecureContext(roles = "ROLE_ADMIN")
-		public void issecure()
+		public void issecure(String token)
 		{
 			
 		}
@@ -66,6 +69,13 @@ public class SecureInterceptorTest {
 		{
 			
 		}
+		
+		@TokenSecureContext(roles = "ROLE_ADMIN")
+		public void secureToken(String token)
+		{
+			
+		}
+		
 	}
 	
 	
@@ -73,8 +83,13 @@ public class SecureInterceptorTest {
 	public static class SecureContextconfiguration {
 
 		@Bean
-		public SecurePostProcessor trace() {
+		public SecurePostProcessor securePostProcessor() {
 			return new SecurePostProcessor();
+		}
+		
+		@Bean
+		public TokenSecurePostProcessor tokenSecurePostProcessor() {
+			return new TokenSecurePostProcessor();
 		}
 		
 		@Bean

@@ -1,6 +1,10 @@
 package com.cloud.web;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
@@ -41,6 +45,48 @@ public class TokenUtil {
 			log.info("{}", e);
 		}
 		return userId;
+	}
+	
+	public static Set<String> extractRoles(String authorization) {
+		Set<String> roles = new HashSet<>();
+		try {
+			if (authorization != null && authorization.startsWith("bearer ")) {
+				String substring = getJwtToken(authorization);
+				Jwt jwt = JwtHelper.decode(substring);
+				String claimsStr = jwt.getClaims();
+				Map<String, Object> claims = (Map<String, Object>) MAPPER.readValue(claimsStr, Object.class);
+				if (claims == null)
+					return null;
+				Object claimScope = claims.get("authorities");
+				if (claimScope == null)
+					return null;
+				return new HashSet<>((Collection) claimScope);
+			}
+		} catch (Exception e) {
+			log.info("{}", e);
+		}
+		return roles;
+	}
+	
+	public static Set<String> extractScopes(String authorization) {
+		Set<String> roles = new HashSet<>();
+		try {
+			if (authorization != null && authorization.startsWith("bearer ")) {
+				String substring = getJwtToken(authorization);
+				Jwt jwt = JwtHelper.decode(substring);
+				String claimsStr = jwt.getClaims();
+				Map<String, Object> claims = (Map<String, Object>) MAPPER.readValue(claimsStr, Object.class);
+				if (claims == null)
+					return null;
+				Object claimScope = claims.get("scope");
+				if (claimScope == null)
+					return null;
+				return new HashSet<>((Collection) claimScope);
+			}
+		} catch (Exception e) {
+			log.info("{}", e);
+		}
+		return roles;
 	}
 
 	public static String getJwtToken(String authorization) {
