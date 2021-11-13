@@ -29,4 +29,16 @@ eureka:
       
       
       
-      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,loggers,metrics,prometheus,mappings,env,info,logfile,loggers
+#        - health
+#        - prometheus
+#        - metrics
+#        - logfile
+#        - loggers
+#        - env
+#        - info
+#        - mappings   
