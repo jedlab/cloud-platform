@@ -27,5 +27,7 @@ eureka:
     metadata-map:
       configPath: /configserver
       
+
+
+     
       
-    
