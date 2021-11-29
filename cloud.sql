@@ -316,7 +316,7 @@ ALTER TABLE public.oauth_refresh_token OWNER TO postgres;
 --
 
 CREATE TABLE public.revinfo (
-    rev integer NOT NULL,
+    rev bigint NOT NULL,
     revtstmp bigint
 );
 
