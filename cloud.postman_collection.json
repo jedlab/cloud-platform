@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "970e620b-3eb6-47f5-9d8b-9b866979b747",
+		"name": "cloud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"cloudadmin\",\n\t\"password\":\"cloudadmin\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8543/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8543",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8543/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8543",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add client",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"clientId\":\"cloud\",\n\t\"pass\":\"cloud\",\n\t\"scopes\":[\"READ\", \"WRITE\"],\n\t\"roles\":[\"ROLE_ADMIN\", \"ROLE_USER\"]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8787/clients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic Y2xvdWQ6Y2xvdWQ=",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"grantType\":\"password\",\n\t\"username\":\"cloudadmin\",\n\t\"password\":\"cloudadmin\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8787/v1/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8787",
+					"path": [
+						"v1",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

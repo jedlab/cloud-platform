@@ -26,7 +26,7 @@ import com.cloud.userservice.app.domain.MenuEntity;
 public class JpaDataConfig {
 
     @Bean
-    public AuditorAware<Long> auditAware()
+    public AuditorAware<String> auditAware()
     {
         return new SpringSecurityAuditorAware();
     }

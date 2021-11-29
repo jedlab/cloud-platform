@@ -16,13 +16,13 @@ import com.jedlab.framework.spring.security.AuthenticationUtil;
  * @author Omid Pourhadi
  *
  */
-public class SpringSecurityAuditorAware implements AuditorAware<Long> {
+public class SpringSecurityAuditorAware implements AuditorAware<String> {
 
 	@Override
-	public Optional<Long> getCurrentAuditor() {
+	public Optional<String> getCurrentAuditor() {
 //		return Optional.of(1L);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Optional<Long> op = Optional.empty();
+		Optional<String> op = Optional.empty();
 		if (AuthenticationUtil.isLoggedIn() == false)
 			return op;
 		if (authentication == null || !authentication.isAuthenticated()) {
@@ -35,7 +35,7 @@ public class SpringSecurityAuditorAware implements AuditorAware<Long> {
 		}
 		if (principal instanceof UserDetailsImpl) {
 			var userDetailsImpl = (UserDetailsImpl) principal;					
-			return Optional.of(userDetailsImpl.getId());
+			return Optional.of(userDetailsImpl.getUsername());
 		}
 		return Optional.empty();
 	}
