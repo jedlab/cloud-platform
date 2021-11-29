@@ -25,8 +25,13 @@ public class SecureInterceptor implements MethodInterceptor {
 					return ret;
 				}
 			}
+			throw new NotAuthorizedException("User doesn't have permission");
 		}
-		throw new NotAuthorizedException("User doesn't have permission");
+		else
+		{
+			Object ret = i.proceed();
+			return ret;
+		}
 	}
 
 }

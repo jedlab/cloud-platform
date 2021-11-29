@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.cloud.entity.AuditPO;
 import com.jedlab.framework.spring.dao.PO;
 
 import lombok.Getter;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @Table(name = "sec_menu")
 @Getter
 @Setter
-public class MenuEntity extends PO implements Comparable<MenuEntity> {
+public class MenuEntity extends AuditPO implements Comparable<MenuEntity> {
 
 	@Column(name = "url")
 	private String url;

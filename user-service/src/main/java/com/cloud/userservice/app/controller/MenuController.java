@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/api/menu")
 public class MenuController {
 
 	@Autowired
@@ -83,9 +83,10 @@ public class MenuController {
 	}
 
 	@PostMapping("")
+	@SecureContext
 	public ResponseEntity<?> create(@RequestBody MenuVO vo) {
 		menuService.createMenu(vo);
-		return null;
+		return ResponseEntity.ok().build();
 	}
 
 	@Getter
