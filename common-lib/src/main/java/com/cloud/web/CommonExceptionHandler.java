@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.cloud.exceptions.BindingException;
 import com.cloud.exceptions.NotAuthorizedException;
 import com.jedlab.framework.exceptions.ServiceException;
 import com.jedlab.framework.spring.validation.BindingErrorMessage;
@@ -68,7 +69,7 @@ public class CommonExceptionHandler {
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public BindingErrorMessage handleServiceException(ConstraintViolationException se) {
+	public BindingErrorMessage handleConstraintViolationException(ConstraintViolationException se) {
 
 		BindingErrorMessage bem = new BindingErrorMessage();
 		Set<ConstraintViolation<?>> constraintViolations = se.getConstraintViolations();
@@ -93,10 +94,20 @@ public class CommonExceptionHandler {
 		return bem;
 	}
 	
+	//BindingException
+	@ExceptionHandler(BindingException.class)
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public BindingErrorMessage  handleBindingException(BindingException se) {
+		BindingErrorMessage bem = new BindingErrorMessage();
+		bem.getErrors().addAll(se.getErrors());
+		return bem;
+	}
+	
 	@ExceptionHandler(NotAuthorizedException.class)
 	@ResponseBody
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
-	public BindingErrorMessage handleServiceException(NotAuthorizedException se) {
+	public BindingErrorMessage handleNotAuthorizedException(NotAuthorizedException se) {
 
 		BindingErrorMessage bem = new BindingErrorMessage();
 		bem.getErrors().add(new ErrorMessage(9999, se.getMessage()));
