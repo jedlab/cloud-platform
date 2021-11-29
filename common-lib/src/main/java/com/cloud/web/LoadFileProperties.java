@@ -2,7 +2,7 @@ package com.cloud.web;
 
 public interface LoadFileProperties {
 
-	public FileProperties getProps();
+	public FileProperties getProps(long eid);
 	
 	
 }
