@@ -19,25 +19,13 @@ import com.cloud.web.security.SecurityContextArgumentResolver;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-	
 	@Autowired
 	CacheServiceProxy userCacheServiceProxy;
-	
+
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
 		resolvers.add(new SecurityContextArgumentResolver(userCacheServiceProxy));
 		WebMvcConfigurer.super.addArgumentResolvers(resolvers);
 	}
-	
-	@Bean
-    public ServletRegistrationBean billBgImageViewerServlet(LoadFileProperties loadFileProperties, UserServiceConfiguration conf)
-    {
-		FileLoaderServlet fls = new FileLoaderServlet(loadFileProperties);		
-        ServletRegistrationBean bean = new ServletRegistrationBean(fls, "/img-view/*");
-        Map<String, String> initParameters = new HashMap<>();
-        initParameters.put("repoHome", conf.getRepoHome());
-		bean.setInitParameters(initParameters);
-        return bean;
-    }
-	
+
 }
