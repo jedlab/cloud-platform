@@ -45,7 +45,15 @@ public class FileLoaderServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String parameterEid = request.getParameter("eid");
 		if(parameterEid == null)
-			return ;
+		{
+			String requestURI = request.getRequestURI();
+	        if (requestURI.contains("/"))
+	        {
+	            String[] split = requestURI.split("/");
+	            requestURI = split[split.length - 1];
+	        }
+	        parameterEid = requestURI;
+		}
 		long eid = Long.parseLong(parameterEid);
 		InputStream is = null;
 		OutputStream output = null;
