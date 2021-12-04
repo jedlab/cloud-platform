@@ -61,7 +61,7 @@ public class FileLoaderServlet extends HttpServlet {
 			is = cfr.read(eid);
 			if(is != null)
 			{
-				FileProperties props = loadFileProperties.getProps(eid);
+				FileProperties props = loadFileProperties.getProps(eid, request);
 				response.setContentType(props.getContentType());
 				if(props.isInline())
 					response.setHeader("Content-disposition", String.format("inline; filename=\"%s.jpg\"", props.getFileName()));
